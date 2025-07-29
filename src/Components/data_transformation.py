@@ -1,14 +1,14 @@
-import pandas as pd
+import pandas as pd # type: ignore
 import os 
 import sys
-import numpy as np
-from sklearn.pipeline import Pipeline as pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
-from sklearn.compose import ColumnTransformer
+import numpy as np # type: ignore
+from sklearn.pipeline import Pipeline # type: ignore
+from sklearn.impute import SimpleImputer # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
+from sklearn.compose import ColumnTransformer # type: ignore
 from src.Exception import CustomException
 from src.logger import logging
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder # type: ignore
 from dataclasses import dataclass
 from src.utils import save_object
 
@@ -26,14 +26,14 @@ class DataTransformation:
             num_features = ['reading_score', 'writing_score']
             cat_features = ["gender","race_ethnicity","parental_level_of_education","lunch","test_preparation_course"]
 
-            num_pipeline = pipeline( 
+            num_pipeline = Pipeline( 
                 steps=[
                     ('imputer', SimpleImputer(strategy='median')),
                     ('scaler', StandardScaler())
                 ]
              )
             
-            cat_pipeline = pipeline( 
+            cat_pipeline = Pipeline( 
                 steps=[
                     ('imputer', SimpleImputer(strategy='most_frequent')),
                     ('OneHotEncoder', OneHotEncoder()),

@@ -7,6 +7,7 @@ import os
 import sys
 from src.Components.data_transformation import DataTransformation, DataTransformationConfig
 from src.utils import save_object
+from src.Components.model_training import ModelTrainer, ModelTrainerConfig
 
 
 @dataclass
@@ -43,5 +44,11 @@ class DataIngestion:
 if __name__ == "__main__":
     dataingestion = DataIngestion()
     train_data, test_data = dataingestion.initiate_data_ingestion()
+
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data, test_data)
+
+    model_trainer = ModelTrainer()
+    print(model_trainer.Initiate_model_training(train_arr, test_arr))
+
+
