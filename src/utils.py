@@ -6,7 +6,7 @@ import dill # type: ignore
 from src.Exception import CustomException
 from src.logger import logging
 from sklearn.metrics import r2_score # type: ignore
-
+from sklearn.model_selection import GridSearchCV
 
 def save_object(file_path, obj):
     try:
@@ -20,11 +20,21 @@ def save_object(file_path, obj):
         logging.error(f"Error occurred while saving object: {e}")
         raise CustomException(e, sys)
     
-def Predict_model(models, X_train, X_test, y_train, y_test):
+def Predict_model(models, X_train, X_test, y_train, y_test,parms):
     model_predict = {}
     try:
         for model_name, model in models.items():
-            model.fit(X_train, y_train)
+            logging.info(f"Training model: {model_name}")
+            
+            if parms:
+                Gsv = GridSearchCV(model, param_grid=parms[model_name], cv=5)
+                Gsv.fit(X_train, y_train)
+                model.set_params(**Gsv.best_params_)
+                model.fit(X_train, y_train)
+            else:
+                model.fit(X_train, y_train)
+
+            #model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             r2_score_value = r2_score(y_test, y_pred)
             model_predict[model_name] = r2_score_value
