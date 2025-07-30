@@ -44,3 +44,13 @@ def Predict_model(models, X_train, X_test, y_train, y_test,parms):
     except Exception as e:
         logging.error(f"Error occurred while predicting with models: {e}")
         raise CustomException(e, sys)
+
+def load_file(file_path):
+    try:
+        with open(file_path,'rb') as file:
+            logging.info(f"Loading file from {file_path}")
+            return dill.load(file)
+    except Exception as e:
+        logging.error(f"Error occurred while loading file: {e}")
+        raise CustomException(e, sys)
+    
