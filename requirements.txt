@@ -6,4 +6,5 @@ dill
 sklearn
 catboost
 xgboost
+streamlit
 -e .
