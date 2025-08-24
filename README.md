@@ -19,10 +19,15 @@ This is a full-stack machine learning project in Python. It includes data ingest
 ### 3. Getting started
 
 git clone https://github.com/nidish124/Mlproject.git
+
 cd Mlproject
+
 conda create --name mlproj python=3.10 -y
+
 conda activate mlproj
+
 pip install -r requirements.txt
+
 streamlit run application.py
 
 ### 4. Modules Breakdown
